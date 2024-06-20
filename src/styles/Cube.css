@@ -1,3 +1,45 @@
+@keyframes confusedOut {
+    0% {
+        transform: rotateX(var(--initial-rotateX)) rotateY(calc(var(--initial-rotateY) - 80deg));
+    }
+    20% {
+        transform: rotateX(var(--initial-rotateX)) rotateY(calc(var(--initial-rotateY) + 70deg));
+    }
+    40% {
+        transform: rotateX(var(--initial-rotateX)) rotateY(calc(var(--initial-rotateY) - 50deg));
+    }
+    60% {
+        transform: rotateX(var(--initial-rotateX)) rotateY(calc(var(--initial-rotateY) + 30deg));
+    }
+    80% {
+        transform: rotateX(var(--initial-rotateX)) rotateY(calc(var(--initial-rotateY) - 10deg));
+    }
+    100% {
+        transform: rotateX(var(--initial-rotateX)) rotateY(calc(var(--initial-rotateY) + 0deg));
+    }
+}
+
+@keyframes confusedIn {
+    0% {
+        transform: rotateX(var(--initial-rotateX)) rotateY(calc(var(--initial-rotateY) - 80deg));
+    }
+    20% {
+        transform: rotateX(var(--initial-rotateX)) rotateY(calc(var(--initial-rotateY) + 70deg));
+    }
+    40% {
+        transform: rotateX(var(--initial-rotateX)) rotateY(calc(var(--initial-rotateY) - 50deg));
+    }
+    60% {
+        transform: rotateX(var(--initial-rotateX)) rotateY(calc(var(--initial-rotateY) + 30deg));
+    }
+    80% {
+        transform: rotateX(var(--initial-rotateX)) rotateY(calc(var(--initial-rotateY) - 10deg));
+    }
+    100% {
+        transform: rotateX(var(--initial-rotateX)) rotateY(calc(var(--initial-rotateY) + 0deg));
+    }
+}
+
 .scene {
     width: 100px;
     height: 100px;

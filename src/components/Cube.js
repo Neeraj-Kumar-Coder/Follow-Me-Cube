@@ -50,7 +50,10 @@ const Cube = () => {
                 className="cube"
                 ref={cubeRef}
                 style={{
+                    "--initial-rotateX": `${rotation.x}deg`,
+                    "--initial-rotateY": `${rotation.y}deg`,
                     transform: `rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)`,
+                    animation: mouseInside ? "confusedIn 500ms linear 0s 1" : "confusedOut 500ms linear 0s 1",
                 }}
             >
                 <div className="face front">
