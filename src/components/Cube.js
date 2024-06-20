@@ -3,9 +3,15 @@ import "../styles/Cube.css";
 
 const Cube = () => {
     const cubeRef = useRef(null);
+    const eyeRef = useRef(null);
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const [rotation, setRotation] = useState({ x: 0, y: 0 });
     const [mouseInside, setMouseInside] = useState(true);
+    const [previousTimeoutKey, setPreviousTimeoutKey] = useState(-1);
+
+    const randomNumberBetween = (low, high) => {
+        return Math.random() * (high - low) + low;
+    };
 
     const handleMouseMove = (event) => {
         const { clientX, clientY } = event;
@@ -36,8 +42,28 @@ const Cube = () => {
     }, [mousePosition]);
 
     useEffect(() => {
+        if (mouseInside) {
+            cubeRef.current.style.transition = "none";
+            clearTimeout(previousTimeoutKey);
+            return;
+        }
+
+        cubeRef.current.style.transition = "all 150ms ease-out";
+
+        const lookAtX = Math.random() * window.innerWidth;
+        const lookAtY = Math.random() * window.innerHeight;
+
+        const key = setTimeout(() => {
+            setMousePosition({ x: lookAtX, y: lookAtY });
+        }, randomNumberBetween(700, 1400));
+
+        setPreviousTimeoutKey(key);
+    }, [mouseInside, mousePosition]);
+
+    useEffect(() => {
         window.addEventListener("mousemove", handleMouseMove);
         window.addEventListener("mouseout", handleMouseLeave);
+
         return () => {
             window.removeEventListener("mousemove", handleMouseMove);
             window.removeEventListener("mouseout", handleMouseLeave);
@@ -58,14 +84,15 @@ const Cube = () => {
             >
                 <div className="face front">
                     <div className="face-content">
-                        <div className="eye-holder">
+                        <div ref={eyeRef} className="eye-holder">
                             <div className="eye"></div>
                             <div className="eye"></div>
                         </div>
                         <div
                             className="mouth"
                             style={{
-                                clipPath: `circle(55% at 50% ${mouseInside ? 0 : 100}%)`,
+                                clipPath: `circle(50% at 50% ${mouseInside ? 10 : 90}%)`,
+                                marginBottom: mouseInside ? "0.3rem" : "1rem",
                             }}
                         ></div>
                     </div>
