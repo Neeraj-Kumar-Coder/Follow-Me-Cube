@@ -5,15 +5,17 @@ const Cube = () => {
     const cubeRef = useRef(null);
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const [rotation, setRotation] = useState({ x: 0, y: 0 });
+    const [mouseInside, setMouseInside] = useState(true);
 
     const handleMouseMove = (event) => {
         const { clientX, clientY } = event;
         setMousePosition({ x: clientX, y: clientY });
+        setMouseInside(true);
     };
 
     const handleMouseLeave = (event) => {
         if (!event.relatedTarget || event.relatedTarget.nodeName === "HTML") {
-            console.log("Mouse is out of view");
+            setMouseInside(false);
         }
     };
 
@@ -22,13 +24,13 @@ const Cube = () => {
             const rect = cubeRef.current.getBoundingClientRect();
             const centerX = rect.left + rect.width / 2;
             const centerY = rect.top + rect.height / 2;
-            const MAX_ROTATION = 90; // in degrees
+            const MAX_ROTATION_DEGREE = 90;
 
             const deltaX = mousePosition.x - centerX;
             const deltaY = mousePosition.y - centerY;
 
-            const rotateY = (deltaX / window.innerWidth) * MAX_ROTATION;
-            const rotateX = -(deltaY / window.innerHeight) * MAX_ROTATION;
+            const rotateY = (deltaX / window.innerWidth) * MAX_ROTATION_DEGREE;
+            const rotateX = -(deltaY / window.innerHeight) * MAX_ROTATION_DEGREE;
             setRotation({ x: rotateX, y: rotateY });
         }
     }, [mousePosition]);
@@ -52,23 +54,24 @@ const Cube = () => {
                 }}
             >
                 <div className="face front">
-                    <div className="face-content">Front</div>
+                    <div className="face-content">
+                        <div className="eye-holder">
+                            <div className="eye"></div>
+                            <div className="eye"></div>
+                        </div>
+                        <div
+                            className="mouth"
+                            style={{
+                                clipPath: `circle(55% at 50% ${mouseInside ? 0 : 100}%)`,
+                            }}
+                        ></div>
+                    </div>
                 </div>
-                <div className="face back">
-                    <div className="face-content">Back</div>
-                </div>
-                <div className="face right">
-                    <div className="face-content">Right</div>
-                </div>
-                <div className="face left">
-                    <div className="face-content">Left</div>
-                </div>
-                <div className="face top">
-                    <div className="face-content">Top</div>
-                </div>
-                <div className="face bottom">
-                    <div className="face-content">Bottom</div>
-                </div>
+                <div className="face back"></div>
+                <div className="face right"></div>
+                <div className="face left"></div>
+                <div className="face top"></div>
+                <div className="face bottom"></div>
             </div>
         </div>
     );
