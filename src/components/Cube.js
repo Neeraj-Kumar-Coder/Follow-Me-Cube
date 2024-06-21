@@ -7,7 +7,8 @@ const Cube = () => {
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const [rotation, setRotation] = useState({ x: 0, y: 0 });
     const [mouseInside, setMouseInside] = useState(true);
-    const [previousTimeoutKey, setPreviousTimeoutKey] = useState(-1);
+    const [previousSearchTimeoutKey, setPreviousSearchTimeoutKey] = useState(-1);
+    const [previousBlinkTimeoutKey, setPreviousBlinkTimeoutKey] = useState(-1);
 
     const randomNumberBetween = (low, high) => {
         return Math.random() * (high - low) + low;
@@ -44,20 +45,28 @@ const Cube = () => {
     useEffect(() => {
         if (mouseInside) {
             cubeRef.current.style.transition = "none";
-            clearTimeout(previousTimeoutKey);
+            eyeRef.current.style.animation = "none";
+            clearTimeout(previousSearchTimeoutKey);
+            clearTimeout(previousBlinkTimeoutKey);
             return;
         }
 
         cubeRef.current.style.transition = "all 150ms ease-out";
+        eyeRef.current.style.animation = "blink 300ms ease-in-out";
 
         const lookAtX = Math.random() * window.innerWidth;
         const lookAtY = Math.random() * window.innerHeight;
 
-        const key = setTimeout(() => {
+        const searchKey = setTimeout(() => {
             setMousePosition({ x: lookAtX, y: lookAtY });
         }, randomNumberBetween(700, 1400));
 
-        setPreviousTimeoutKey(key);
+        const blinkKey = setTimeout(() => {
+            eyeRef.current.style.animation = "none";
+        }, randomNumberBetween(500, 1200));
+
+        setPreviousSearchTimeoutKey(searchKey);
+        setPreviousBlinkTimeoutKey(blinkKey);
     }, [mouseInside, mousePosition]);
 
     useEffect(() => {
