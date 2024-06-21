@@ -31,7 +31,7 @@ const Cube = () => {
             const rect = cubeRef.current.getBoundingClientRect();
             const centerX = rect.left + rect.width / 2;
             const centerY = rect.top + rect.height / 2;
-            const MAX_ROTATION_DEGREE = 90;
+            const MAX_ROTATION_DEGREE = 70;
 
             const deltaX = mousePosition.x - centerX;
             const deltaY = mousePosition.y - centerY;
@@ -51,7 +51,7 @@ const Cube = () => {
             return;
         }
 
-        cubeRef.current.style.transition = "all 150ms ease-out";
+        cubeRef.current.style.transition = "transform 150ms ease-out";
         eyeRef.current.style.animation = "blink 300ms ease-in-out";
 
         const lookAtX = Math.random() * window.innerWidth;
