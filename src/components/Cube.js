@@ -59,11 +59,11 @@ const Cube = () => {
 
         const searchKey = setTimeout(() => {
             setMousePosition({ x: lookAtX, y: lookAtY });
-        }, randomNumberBetween(700, 1400));
+        }, randomNumberBetween(1000, 2000));
 
         const blinkKey = setTimeout(() => {
             eyeRef.current.style.animation = "none";
-        }, randomNumberBetween(500, 1200));
+        }, randomNumberBetween(800, 1600));
 
         setPreviousSearchTimeoutKey(searchKey);
         setPreviousBlinkTimeoutKey(blinkKey);

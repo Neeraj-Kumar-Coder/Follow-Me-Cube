@@ -67,8 +67,8 @@
     position: absolute;
     width: 100px;
     height: 100px;
-    background: rgba(255, 255, 255, 0.9);
-    border: 1px solid #ccc;
+    background: #ffdbac;
+    border: 1px solid white;
 }
 
 .eye {
